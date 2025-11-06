@@ -21,10 +21,16 @@
 ### Windows:
 
 - `https://getcomposer.org/download/`
-- Download adn run the `Composer-Setup.exe`
+- Download and run the `Composer-Setup.exe`
 - Follow the instructions and verify with `compose --version`
 
 ### MacOS:
 
 - `brew install composer`
 - `composer --version`
+
+## Install Node
+
+### Windows/MacOS:
+
+- `https://nodejs.org/en/download`

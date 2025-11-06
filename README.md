@@ -13,10 +13,10 @@
 ## Run
 
 ```bash
-cd app/api-php && cp .env.example .env && composer install
+cd api-php && composer install
 php -S localhost:8080 -t public
 
-cd ../../app/web-react && npm install
+cd web-react && npm install
 npm run dev
 ```
 
@@ -24,10 +24,10 @@ Open `http://localhost:5173` → click **Test Connection** → **Sync Accounts**
 
 ## Where files go
 
-- JSON/CSV are written to `app/api-php/storage/`.
-- Logs at `app/api-php/logs/app.log`.
+- JSON/CSV are written to `api-php/public/storage/`.
+- Logs at `api-php/public/logs/app.log`.
 
 ## Notes
 
 - For Custom Connections, the **tenant is implicit**; pass an empty string for the `$xeroTenantId` parameter with the PHP SDK.
-- The server obtains access tokens via `client_credentials`; no refresh token is used — request a new token when needed.
+- The server obtains access tokens via `client_credentials`; no refresh token is used. We will request a new token when needed.
