@@ -206,5 +206,9 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
+# build packages
 /api-php/vendor/
 /web-react/node_modules/
+
+# storage data
+/api-php/public/storage/
