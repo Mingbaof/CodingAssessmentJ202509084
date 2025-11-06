@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const API = "http://localhost:8080";
 
 export default function App() {
+  // should move those into hooks
   const [configured, setConfigured] = useState(false);
   const [connected, setConnected] = useState(false);
   const [loading, setLoading] = useState(false);
