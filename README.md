@@ -31,3 +31,9 @@ Open `http://localhost:5173` → click **Test Connection** → **Sync Accounts**
 
 - For Custom Connections, the **tenant is implicit**; pass an empty string for the `$xeroTenantId` parameter with the PHP SDK.
 - The server obtains access tokens via `client_credentials`; no refresh token is used. We will request a new token when needed.
+
+# TODO:
+
+- Need to move logic to use hooks in UI
+- Need to remove the load buttons as they are not needed
+- Need some simple unit tests
