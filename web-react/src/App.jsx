@@ -56,7 +56,6 @@ export default function App() {
       <h1 style={{ marginBottom: 8 }}>Coding Assessment</h1>
       <p style={{ color: "#555" }}>
         Fetching Accounts and Vendors from demo company on Xero.
-        Connection.
       </p>
 
       <div
@@ -75,7 +74,6 @@ export default function App() {
               : "Configured — not connected"
             : "Not configured"}
         </span>
-        {msg && <span style={{ marginLeft: 12 }}>{msg}</span>}
       </div>
 
       {!configured && msg && (

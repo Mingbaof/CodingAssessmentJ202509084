@@ -53,21 +53,21 @@ try {
         $connected = false;
         $error = null;
         $missingConfig = [];
-        
+
         // Check for missing configuration
         if (!$configured) {
             $clientId = Environment::get('XERO_CLIENT_ID');
             $clientSecret = Environment::get('XERO_CLIENT_SECRET');
-            
+
             if (!$clientId) {
                 $missingConfig[] = 'XERO_CLIENT_ID';
             }
             if (!$clientSecret) {
                 $missingConfig[] = 'XERO_CLIENT_SECRET';
             }
-            
+
             if (!empty($missingConfig)) {
-                $error = 'Missing required environment variables: ' . implode(', ', $missingConfig) . '. Please create a .env file in the api-php directory with these variables.';
+                $error = 'Missing required environment variables: ' . implode(', ', $missingConfig) . '. Check your .env file.';
             }
         } else {
             try {
@@ -77,7 +77,7 @@ try {
                 $error = $e->getMessage();
             }
         }
-        
+
         json(['configured' => $configured, 'connected' => $connected, 'error' => $error]);
     }
 

@@ -8,7 +8,7 @@
 
 ## Configure env
 
-- It's in `/api-php/.env`
+- Put it in `/api-php/.env`
 
 ## Run
 
