@@ -33,8 +33,6 @@ Open `http://localhost:5173` → click **Test Connection** → **Sync Accounts**
 - The server obtains access tokens via `client_credentials`; no refresh token is used. We will request a new token when needed.
 
 # TODO:
-
-- Need to move logic to use hooks in UI
 - Need some simple unit tests
 - Need to improve logging
 - Need to test error handling edge cases
