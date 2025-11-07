@@ -1,9 +1,16 @@
+# Install Brew if you are using MacOC:
+```https://brew.sh/```
+
 ## Install PHP
 
 ### MacOS:
 
 - `brew install php@8.1`
 - Then add it to PATH
+```
+  echo 'export PATH="/opt/homebrew/opt/php@8.1/bin:$PATH"' >> ~/.zshrc
+  echo 'export PATH="/opt/homebrew/opt/php@8.1/sbin:$PATH"' >> ~/.zshrc
+```
 - `php -v`
 
 ### Windows(Reference: https://www.youtube.com/watch?v=5LtyTo4KArk):
@@ -21,10 +28,16 @@
 ### Windows:
 
 - `https://getcomposer.org/download/`
-- Download adn run the `Composer-Setup.exe`
+- Download and run the `Composer-Setup.exe`
 - Follow the instructions and verify with `compose --version`
 
 ### MacOS:
 
 - `brew install composer`
 - `composer --version`
+
+## Install Node
+
+### Windows/MacOS:
+
+- `https://nodejs.org/en/download`

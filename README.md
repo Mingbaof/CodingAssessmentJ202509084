@@ -8,4 +8,44 @@
 
 ## Configure env
 
-- It's in `/api-php/.env`
+- `cd api-php && cp .env.example .env`
+- Then fillin the ID and key generated from your Xero app.
+
+## Run Server & UI
+
+```bash
+cd api-php && composer install
+php -S localhost:8080 -t public
+
+cd web-react && npm install
+npm run dev
+```
+
+Open `http://localhost:5173` → click **Test Connection** → **Sync Accounts** / **Sync Vendors**.
+
+## Testing
+
+Run PHP unit tests:
+
+```bash
+cd api-php
+composer test
+```
+
+Run React unit tests:
+
+```bash
+cd web-react
+npm test
+```
+
+The tests cover core functionality including custom hooks and component behavior, demonstrating proper testing practices with mocking, assertions, and user interaction testing.
+
+## Where files go
+
+- JSON/CSV are written to `api-php/public/storage/`.
+- Logs at `api-php/public/logs/app.log`.
+
+## Notes
+
+- The server obtains access tokens via `client_credentials`, so no refresh token is used. We will request a new token when needed.
