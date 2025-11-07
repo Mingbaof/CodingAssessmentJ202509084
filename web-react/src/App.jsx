@@ -31,7 +31,6 @@ const App = () => {
     }
   };
 
-
   return (
     <div
       style={{
@@ -55,7 +54,7 @@ const App = () => {
         }}
       >
         <button onClick={checkStatus}>Test Connection</button>
-        <span style={{ color: connected ? "green" : "crimson" }}>
+        <span style={{ color: connected ? "green" : "red" }}>
           {configured
             ? connected
               ? "Connected"
@@ -65,7 +64,7 @@ const App = () => {
       </div>
 
       {/* show error message */}
-      {!configured && msg && (
+      {(!configured || !connected) && msg && (
         <div
           style={{
             backgroundColor: "#fff3cd",
@@ -76,14 +75,14 @@ const App = () => {
             color: "#856404",
           }}
         >
-          <strong>Configuration Required:</strong>
+          <strong>Attention Required:</strong>
           <br />
           {msg}
         </div>
       )}
 
       {/* show info message */}
-      {configured && msg && (
+      {configured && connected && msg && (
         <div
           style={{
             backgroundColor: "#d4edda",
