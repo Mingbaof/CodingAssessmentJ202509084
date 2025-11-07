@@ -25,9 +25,9 @@ const App = () => {
     showMessage("Syncing…", false);
     try {
       const result = await syncFunction();
-      showMessage(`Synced ${result.count} ${type} records`);
+      showMessage(`Synced ${result.count} ${type} records`, false);
     } catch (error) {
-      showMessage(`Error: ${error.message}`);
+      showMessage(`Error: ${error.message}`, false);
     }
   };
 
@@ -64,6 +64,7 @@ const App = () => {
         </span>
       </div>
 
+      {/* show error message */}
       {!configured && msg && (
         <div
           style={{
@@ -77,6 +78,22 @@ const App = () => {
         >
           <strong>Configuration Required:</strong>
           <br />
+          {msg}
+        </div>
+      )}
+
+      {/* show info message */}
+      {configured && msg && (
+        <div
+          style={{
+            backgroundColor: "#d4edda",
+            border: "1px solid #c3e6cb",
+            borderRadius: 8,
+            padding: 16,
+            marginBottom: 16,
+            color: "#155724",
+          }}
+        >
           {msg}
         </div>
       )}
