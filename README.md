@@ -8,9 +8,10 @@
 
 ## Configure env
 
-- Put it in `/api-php/.env`
+- `cd api-php && cp .env.example .env`
+- Then fillin the ID and key generated from your Xero app.
 
-## Run
+## Run Server & UI
 
 ```bash
 cd api-php && composer install
@@ -51,5 +52,5 @@ The tests cover core functionality including custom hooks and component behavior
 - The server obtains access tokens via `client_credentials`; no refresh token is used. We will request a new token when needed.
 
 # TODO:
-- Need to improve logging
+
 - Need to test error handling edge cases
