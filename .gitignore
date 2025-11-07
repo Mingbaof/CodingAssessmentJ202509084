@@ -212,3 +212,4 @@ __marimo__/
 
 # storage data
 /api-php/public/storage/
+.DS_Store

@@ -78,6 +78,23 @@ export default function App() {
         {msg && <span style={{ marginLeft: 12 }}>{msg}</span>}
       </div>
 
+      {!configured && msg && (
+        <div
+          style={{
+            backgroundColor: "#fff3cd",
+            border: "1px solid #ffeaa7",
+            borderRadius: 8,
+            padding: 16,
+            marginBottom: 16,
+            color: "#856404",
+          }}
+        >
+          <strong>Configuration Required:</strong>
+          <br />
+          {msg}
+        </div>
+      )}
+
       <div style={{ display: "flex", gap: 12, marginBottom: 24 }}>
         <button
           disabled={!connected || loading}

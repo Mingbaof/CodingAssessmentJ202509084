@@ -18,13 +18,18 @@ class Storage
 
     public function writeJson(string $filename, array $data): void
     {
-        file_put_contents($this->path($filename), json_encode($data, JSON_PRETTY_PRINT));
+        $fullPath = $this->path($filename);
+        $result = file_put_contents($fullPath, json_encode($data, JSON_PRETTY_PRINT));
+        if ($result === false) {
+            throw new \RuntimeException("Failed to write JSON file: $fullPath");
+        }
     }
 
     public function writeCsv(string $filename, array $rows): void
     {
-        $fp = fopen($this->path($filename), 'w');
-        if (!$fp) throw new \RuntimeException('Unable to open file for writing CSV');
+        $fullPath = $this->path($filename);
+        $fp = fopen($fullPath, 'w');
+        if (!$fp) throw new \RuntimeException("Unable to open file for writing CSV: $fullPath");
         if (empty($rows)) { fclose($fp); return; }
         // headers from keys of first row
         fputcsv($fp, array_keys($rows[0]));
