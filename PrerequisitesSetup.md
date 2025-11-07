@@ -41,3 +41,7 @@
 ### Windows/MacOS:
 
 - `https://nodejs.org/en/download`
+
+## Xero App creation at `https://developer.xero.com/app/manage`:
+<img width="2536" height="1245" alt="image" src="https://github.com/user-attachments/assets/57e6ded4-6833-4474-b2ea-3dcb78404836" />
+
