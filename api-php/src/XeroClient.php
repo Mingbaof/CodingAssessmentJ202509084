@@ -75,6 +75,12 @@ class XeroClient
     {
         $api = $this->getAccountingApi();
         $result = $api->getAccounts(''); // tenant id implicit in Custom Connection
+        
+        // $this->logger->info('Raw Xero Accounts Response', [
+        //     'type' => get_class($result),
+        //     'data' => print_r($result, true)
+        // ]);
+        
         $rows = [];
         foreach ($result->getAccounts() as $a) {
             $rows[] = [
@@ -95,6 +101,12 @@ class XeroClient
         $api = $this->getAccountingApi();
         $where = 'IsSupplier==true';
         $result = $api->getContacts('', null, $where);
+
+        // $this->logger->info('Raw Xero Vendors Response', [
+        //     'type' => get_class($result),
+        //     'data' => print_r($result, true)
+        // ]);
+        
         $rows = [];
         foreach ($result->getContacts() as $c) {
             $rows[] = [
@@ -116,8 +128,14 @@ class XeroClient
 
     private function loadToken(): ?array
     {
-        if (!file_exists($this->tokenPath)) return null;
+        if (!file_exists($this->tokenPath)) {
+            return null;
+        }
         $raw = file_get_contents($this->tokenPath);
-        return $raw ? json_decode($raw, true) : null;
+        if ($raw) {
+            return json_decode($raw, true);
+        } else {
+            return null;
+        }
     }
 }

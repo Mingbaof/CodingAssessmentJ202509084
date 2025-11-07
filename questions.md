@@ -70,6 +70,7 @@ const sync = useCallback(async (path, setter) => {
 ```
 
 I used `useCallback` to:
+
 - **Prevent unnecessary re-renders:** Without it, the function would be recreated on every render
 - **Dependency optimization:** Child components using this function won't re-render unnecessarily
 - **Memory optimization:** Avoids creating new function instances
@@ -84,6 +85,7 @@ I used `useCallback` to:
 - **Graceful degradation:** Showing "No data" when arrays are empty instead of crashing
 
 Example in the sync handler:
+
 ```javascript
 try {
   const result = await syncFunction();
@@ -103,6 +105,7 @@ try {
 - **Error scenario testing:** Testing disabled states and error conditions
 
 Key testing patterns:
+
 - Mocking external dependencies
 - Testing user interactions rather than implementation details
 - Verifying accessibility and user experience
@@ -127,6 +130,7 @@ if ($path === '/sync/accounts' && $_SERVER['REQUEST_METHOD']==='POST') {
 ```
 
 **Why no framework:**
+
 - **Simplicity:** For a small API with few endpoints, a framework would be overkill
 - **Performance:** No framework overhead
 - **Learning opportunity:** Demonstrates understanding of HTTP fundamentals
@@ -156,6 +160,7 @@ public function getToken(): array
 ```
 
 **Key features:**
+
 - **Token caching:** Tokens are persisted to avoid unnecessary API calls
 - **Automatic renewal:** Tokens are renewed 30 seconds before expiration
 - **Error handling:** Comprehensive logging for debugging OAuth issues
@@ -170,12 +175,14 @@ public function getToken(): array
 - **Token storage:** Secure token persistence between requests
 
 **Limitations:**
+
 - **Concurrency:** No file locking, potential race conditions
 - **Scalability:** Won't handle high traffic or large datasets
 - **Backup:** No built-in backup or redundancy
 - **Security:** Files are accessible if directory permissions are misconfigured
 
 **For production, I'd use:**
+
 - Database storage (MySQL/PostgreSQL)
 - Redis for caching
 - Proper file permissions and encryption
@@ -198,6 +205,7 @@ try {
 ```
 
 **Error handling strategy:**
+
 - **Global exception handler:** Catches all uncaught exceptions
 - **Structured logging:** Using Monolog with context and stack traces
 - **User-friendly responses:** Convert technical errors to user-friendly messages
@@ -214,6 +222,7 @@ try {
 - **File-based:** Logs written to `api-php/public/logs/app.log`
 
 **Benefits:**
+
 - **Debugging:** Easy to trace issues in production
 - **Monitoring:** Can be integrated with log aggregation tools
 - **Audit trail:** Track API usage and data access
@@ -228,17 +237,20 @@ try {
 **Answer:** I implemented both PHP and React tests:
 
 **PHP Tests (PHPUnit):**
+
 - **Unit tests:** Testing `Environment` class functionality
 - **Configuration testing:** Environment variable handling
 - **Priority testing:** Ensuring `$_ENV` takes precedence over `$_SERVER`
 
 **React Tests (Vitest):**
+
 - **Component tests:** Testing App component behavior
 - **Hook mocking:** Isolating component logic from hook implementation
 - **User interaction:** Testing button clicks and state changes
 - **Error scenarios:** Testing disabled states and error handling
 
 **Coverage areas:**
+
 - Happy path scenarios
 - Error conditions
 - Edge cases
@@ -257,6 +269,7 @@ try {
 - **Security testing:** Input validation, authentication
 
 I'd also add:
+
 - Test data fixtures
 - Database seeding for consistent test states
 - CI/CD pipeline integration
@@ -271,6 +284,7 @@ I'd also add:
 **Answer:** Several security measures are in place:
 
 **CORS Configuration:**
+
 ```php
 function cors($origin) {
     header('Access-Control-Allow-Origin: ' . $origin);
@@ -286,6 +300,7 @@ function cors($origin) {
 **Session Management:** PHP sessions for state management
 
 **Additional security needed:**
+
 - Input sanitization and validation
 - Rate limiting
 - HTTPS enforcement
@@ -302,6 +317,7 @@ function cors($origin) {
 - **Authentication:** OAuth2 with token expiration
 
 **Additional protection needed:**
+
 - **Rate limiting:** Prevent API abuse
 - **Input validation:** Sanitize all user inputs
 - **HTTPS only:** Encrypt data in transit
@@ -318,16 +334,19 @@ function cors($origin) {
 **Answer:** Several optimization strategies:
 
 **Frontend:**
+
 - **React hooks optimization:** Using `useCallback` to prevent unnecessary re-renders
 - **Conditional rendering:** Only showing data when available
 - **Efficient state updates:** Minimal state management with targeted updates
 
 **Backend:**
+
 - **Token caching:** Avoiding unnecessary OAuth requests
 - **Efficient data mapping:** Direct field mapping without unnecessary processing
 - **File-based storage:** Fast reads/writes for small datasets
 
 **API Design:**
+
 - **Single-purpose endpoints:** Each endpoint has one responsibility
 - **Batch operations:** Sync all accounts/vendors in one request
 - **Proper HTTP methods:** GET for status, POST for sync operations
@@ -337,22 +356,26 @@ function cors($origin) {
 **Answer:** For scalability improvements:
 
 **Database Implementation:**
+
 - Replace file storage with PostgreSQL/MySQL
 - Implement pagination for large datasets
 - Add database indexing for performance
 
 **Caching Strategy:**
+
 - Redis for frequently accessed data
 - HTTP caching headers
 - Application-level caching
 
 **API Optimization:**
+
 - Implement pagination (`?page=1&limit=50`)
 - Add filtering and search capabilities
 - Background job processing for large syncs
 - API response compression
 
 **Frontend Optimization:**
+
 - Virtual scrolling for large tables
 - Lazy loading and pagination
 - Debounced search inputs
@@ -367,6 +390,7 @@ function cors($origin) {
 **Answer:** The integration uses Xero's official PHP SDK:
 
 **Authentication Flow:**
+
 ```php
 $this->provider = new GenericProvider([
     'clientId' => Environment::get('XERO_CLIENT_ID'),
@@ -377,11 +401,13 @@ $this->provider = new GenericProvider([
 ```
 
 **Data Retrieval:**
+
 - **Accounts:** Using `getAccounts()` with empty tenant ID for custom connections
 - **Vendors:** Using `getContacts()` with `IsSupplier==true` filter
 - **Data mapping:** Converting Xero objects to arrays for JSON serialization
 
 **Key features:**
+
 - Automatic token management
 - Error handling and logging
 - Custom connection support (implicit tenant)
@@ -393,6 +419,7 @@ $this->provider = new GenericProvider([
 **Current approach:** Basic error handling catches rate limit exceptions
 
 **Improved approach:**
+
 ```php
 // Implement exponential backoff
 private function makeRequest($callable, $maxRetries = 3) {
@@ -411,6 +438,7 @@ private function makeRequest($callable, $maxRetries = 3) {
 ```
 
 **Additional strategies:**
+
 - Implement request queuing
 - Cache frequently requested data
 - Monitor rate limit headers
@@ -425,26 +453,31 @@ private function makeRequest($callable, $maxRetries = 3) {
 **Answer:** Several practices implemented:
 
 **Code Organization:**
+
 - **Clear separation:** Frontend/backend separation
 - **Single responsibility:** Each class/hook has one purpose
 - **Naming conventions:** Descriptive variable and function names
 
 **Error Handling:**
+
 - Comprehensive try-catch blocks
 - Structured logging with context
 - User-friendly error messages
 
 **Testing:**
+
 - Unit tests for critical functionality
 - Component tests with mocking
 - Error scenario testing
 
 **Documentation:**
+
 - Clear README with setup instructions
 - Inline code comments for complex logic
 - API endpoint documentation in code
 
 **Improvements needed:**
+
 - Code formatting standards (PSR-12 for PHP, Prettier for JS)
 - Static analysis tools (PHPStan, ESLint)
 - Automated code review tools
@@ -455,35 +488,44 @@ private function makeRequest($callable, $maxRetries = 3) {
 **Answer:** Several improvements I would make:
 
 **Architecture:**
+
 - **Use a PHP framework:** Laravel or Symfony for better structure
 - **Database storage:** PostgreSQL instead of file-based storage
 - **API versioning:** Proper versioning strategy (/api/v1/)
 - **Docker containerization:** For consistent development environments
 
 **Security:**
+
 - **Input validation library:** Comprehensive validation
 - **Security middleware:** Authentication, rate limiting, CORS
 - **Environment-specific configs:** Separate dev/staging/prod configurations
 
 **Testing:**
+
 - **Test-driven development:** Write tests first
 - **Integration tests:** Full API endpoint testing
 - **E2E testing:** Cypress or Playwright for user workflows
 - **CI/CD pipeline:** Automated testing and deployment
 
 **Code Quality:**
+
 - **Linting and formatting:** ESLint, Prettier, PHPStan
 - **Code coverage:** Minimum coverage requirements
 - **Pre-commit hooks:** Ensure code quality before commits
 - **API documentation:** OpenAPI/Swagger documentation
 
 **Monitoring:**
+
 - **Application monitoring:** Error tracking (Sentry)
 - **Performance monitoring:** APM tools
 - **Health checks:** Comprehensive health endpoints
 - **Metrics and alerting:** Monitor API usage and errors
 
 These improvements would make the application more production-ready and maintainable for a team environment.
+
+### 21. What does the server run with php -S localhost:8080 -t public?
+
+- The -t public flag lets you run the server from the project root while keeping the web root secure and properly organized.
 
 ---
 

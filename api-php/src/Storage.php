@@ -29,12 +29,32 @@ class Storage
     {
         $fullPath = $this->path($filename);
         $fp = fopen($fullPath, 'w');
-        if (!$fp) throw new \RuntimeException("Unable to open file for writing CSV: $fullPath");
-        if (empty($rows)) { fclose($fp); return; }
+        if (!$fp) {
+            throw new \RuntimeException("Unable to open file for writing CSV: $fullPath");
+        }
+        if (empty($rows)) {
+            fclose($fp);
+            return;
+        }
+
         // headers from keys of first row
         fputcsv($fp, array_keys($rows[0]));
         foreach ($rows as $row) {
-            fputcsv($fp, array_map(fn($v) => is_bool($v) ? ($v ? 'true':'false') : $v, $row));
+            $transformedRow = [];
+
+            // avoid writing 1 and 0 in csv
+            foreach ($row as $value) {
+                if (is_bool($value)) {
+                    if ($value) {
+                        $transformedRow[] = 'true';
+                    } else {
+                        $transformedRow[] = 'false';
+                    }
+                } else {
+                    $transformedRow[] = $value;
+                }
+            }
+            fputcsv($fp, $transformedRow);
         }
         fclose($fp);
     }
