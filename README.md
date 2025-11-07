@@ -22,6 +22,24 @@ npm run dev
 
 Open `http://localhost:5173` → click **Test Connection** → **Sync Accounts** / **Sync Vendors**.
 
+## Testing
+
+Run PHP unit tests:
+
+```bash
+cd api-php
+composer test
+```
+
+Run React unit tests:
+
+```bash
+cd web-react
+npm test
+```
+
+The tests cover core functionality including custom hooks and component behavior, demonstrating proper testing practices with mocking, assertions, and user interaction testing.
+
 ## Where files go
 
 - JSON/CSV are written to `api-php/public/storage/`.
@@ -33,6 +51,6 @@ Open `http://localhost:5173` → click **Test Connection** → **Sync Accounts**
 - The server obtains access tokens via `client_credentials`; no refresh token is used. We will request a new token when needed.
 
 # TODO:
-- Need some simple unit tests
+- ✅ Added simple unit tests for core functionality
 - Need to improve logging
 - Need to test error handling edge cases
