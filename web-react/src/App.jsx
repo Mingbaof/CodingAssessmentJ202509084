@@ -1,47 +1,35 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useAuth, useSync, useMessage } from "./hooks";
 
-const API = "http://localhost:8080";
-
-export default function App() {
-  // should move those into hooks
-  const [configured, setConfigured] = useState(false);
-  const [connected, setConnected] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [accounts, setAccounts] = useState([]);
-  const [vendors, setVendors] = useState([]);
-  const [msg, setMsg] = useState("");
-
-  async function checkStatus() {
-    const res = await fetch(`${API}/auth/status`, { credentials: "include" });
-    const j = await res.json();
-    setConfigured(j.configured);
-    setConnected(j.connected);
-    if (j.error) setMsg(j.error);
-  }
+const App = () => {
+  const { configured, connected, checkStatus } = useAuth();
+  const { loading, accounts, vendors, syncAccounts, syncVendors } = useSync();
+  const { msg, showMessage } = useMessage();
 
   useEffect(() => {
-    checkStatus();
-  }, []);
+    const handleStatusCheck = async () => {
+      try {
+        const result = await checkStatus();
+        if (result.error) {
+          showMessage(result.error, false);
+        }
+      } catch (error) {
+        showMessage("Failed to check connection status", false);
+      }
+    };
 
-  async function sync(path, setter) {
-    setLoading(true);
-    setMsg("Syncing…");
+    handleStatusCheck();
+  }, [checkStatus, showMessage]);
+
+  const handleSync = async (syncFunction, type) => {
+    showMessage("Syncing…", false);
     try {
-      const res = await fetch(`${API}${path}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-      });
-      const j = await res.json();
-      setter(j.rows || []);
-      setMsg(`Synced ${j.count || 0} records`);
-    } catch (e) {
-      setMsg("Error: " + e.message);
-    } finally {
-      setLoading(false);
-      setTimeout(() => setMsg(""), 3000);
+      const result = await syncFunction();
+      showMessage(`Synced ${result.count} ${type} records`);
+    } catch (error) {
+      showMessage(`Error: ${error.message}`);
     }
-  }
+  };
 
 
   return (
@@ -96,13 +84,13 @@ export default function App() {
       <div style={{ display: "flex", gap: 12, marginBottom: 24 }}>
         <button
           disabled={!connected || loading}
-          onClick={() => sync("/sync/accounts", setAccounts)}
+          onClick={() => handleSync(syncAccounts, "account")}
         >
           Sync Accounts
         </button>
         <button
           disabled={!connected || loading}
-          onClick={() => sync("/sync/vendors", setVendors)}
+          onClick={() => handleSync(syncVendors, "vendor")}
         >
           Sync Vendors
         </button>
@@ -115,9 +103,11 @@ export default function App() {
       <Table rows={vendors} />
     </div>
   );
-}
+};
 
-function Table({ rows }) {
+export default App;
+
+const Table = ({ rows }) => {
   if (!rows?.length) return <div style={{ color: "#777" }}>No data</div>;
   const headers = Object.keys(rows[0]);
   return (
@@ -158,4 +148,4 @@ function Table({ rows }) {
       </table>
     </div>
   );
-}
+};
