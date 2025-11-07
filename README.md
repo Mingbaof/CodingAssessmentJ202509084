@@ -51,6 +51,5 @@ The tests cover core functionality including custom hooks and component behavior
 - The server obtains access tokens via `client_credentials`; no refresh token is used. We will request a new token when needed.
 
 # TODO:
-- ✅ Added simple unit tests for core functionality
 - Need to improve logging
 - Need to test error handling edge cases
