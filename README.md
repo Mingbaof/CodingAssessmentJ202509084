@@ -32,15 +32,6 @@ cd api-php
 composer test
 ```
 
-Run React unit tests:
-
-```bash
-cd web-react
-npm test
-```
-
-The tests cover core functionality including custom hooks and component behavior, demonstrating proper testing practices with mocking, assertions, and user interaction testing.
-
 ## Where files go
 
 - JSON/CSV are written to `api-php/public/storage/`.
