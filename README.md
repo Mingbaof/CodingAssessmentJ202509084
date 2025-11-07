@@ -35,7 +35,6 @@ Open `http://localhost:5173` → click **Test Connection** → **Sync Accounts**
 # TODO:
 
 - Need to move logic to use hooks in UI
-- Need to remove the load buttons as they are not needed
 - Need some simple unit tests
 - Need to improve logging
 - Need to test error handling edge cases

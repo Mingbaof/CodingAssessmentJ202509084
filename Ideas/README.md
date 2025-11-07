@@ -5,7 +5,7 @@
 - This is the rough plan out of the project, identifying the core requirements and user flow.
 - If this is a more complex project maybe I would do some scooping of the work as well, but since this is trivial, each item in the `Deliverables` list should be a descriptive user story and the acceptance criteria should be obvious. Thus, no extra scooping is done.
 
-### System Design:
+### Pre/Post Design Diagram:
 
-- To be done
+- There are `Pre Design Diagram` and `Post Design Diagram`, the pre one is just some initial design after I implemented the strcuture of the repo and the packages(modules). The post one is updated with more details after I completed the assessment.
 - User flow is simple, so no Sequence diagrams are needed.
