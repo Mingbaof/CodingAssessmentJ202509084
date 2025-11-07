@@ -48,9 +48,4 @@ The tests cover core functionality including custom hooks and component behavior
 
 ## Notes
 
-- For Custom Connections, the **tenant is implicit**; pass an empty string for the `$xeroTenantId` parameter with the PHP SDK.
-- The server obtains access tokens via `client_credentials`; no refresh token is used. We will request a new token when needed.
-
-# TODO:
-
-- Need to test error handling edge cases
+- The server obtains access tokens via `client_credentials`, so no refresh token is used. We will request a new token when needed.

@@ -74,7 +74,7 @@ class XeroClient
     public function getAccounts(): array
     {
         $api = $this->getAccountingApi();
-        $result = $api->getAccounts(''); // tenant id implicit in Custom Connection
+        $result = $api->getAccounts(''); // tenant id can be empty in Custom Connection
         
         // $this->logger->info('Raw Xero Accounts Response', [
         //     'type' => get_class($result),
