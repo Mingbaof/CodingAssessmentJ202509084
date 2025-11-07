@@ -77,35 +77,8 @@ try {
         json(['count' => count($rows), 'rows' => $rows]);
     }
 
-    if ($path === '/data/accounts' && $_SERVER['REQUEST_METHOD']==='GET') {
-        $p = $GLOBALS['storage']->path('accounts.json');
-        $rows = file_exists($p) ? json_decode(file_get_contents($p), true) : [];
-        json(['count' => count($rows), 'rows' => $rows]);
-    }
-
-    if ($path === '/data/vendors' && $_SERVER['REQUEST_METHOD']==='GET') {
-        $p = $GLOBALS['storage']->path('vendors.json');
-        $rows = file_exists($p) ? json_decode(file_get_contents($p), true) : [];
-        json(['count' => count($rows), 'rows' => $rows]);
-    }
-
-    if ($path === '/api/download/accounts.csv' && $_SERVER['REQUEST_METHOD']==='GET') {
-        $file = $GLOBALS['storage']->path('accounts.csv');
-        if (!file_exists($file)) {
-            http_response_code(404);
-            exit('File not found');
-        }
-        header('Content-Type: text/csv');
-        header('Content-Disposition: attachment; filename="accounts.csv"');
-        readfile($file);
-        exit;
-    }    if ($path === '/api/download/vendors.csv' && $_SERVER['REQUEST_METHOD']==='GET') {
-        $file = $GLOBALS['storage']->path('vendors.csv');
-        if (!file_exists($file)) { http_response_code(404); exit('Not found'); }
-        header('Content-Type: text/csv');
-        header('Content-Disposition: attachment; filename="vendors.csv"');
-        readfile($file); exit;
-    }    http_response_code(404);
+    # no routes matched
+    http_response_code(404);
     echo 'Not Found';
 } catch (Throwable $e) {
     $GLOBALS['logger']->error($e->getMessage(), ['trace' => $e->getTraceAsString()]);

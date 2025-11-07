@@ -43,11 +43,6 @@ export default function App() {
     }
   }
 
-  async function load(path, setter) {
-    const res = await fetch(`${API}${path}`, { credentials: "include" });
-    const j = await res.json();
-    setter(j.rows || []);
-  }
 
   return (
     <div
@@ -58,9 +53,9 @@ export default function App() {
         margin: "0 auto",
       }}
     >
-      <h1 style={{ marginBottom: 8 }}>Xero Custom Connection</h1>
+      <h1 style={{ marginBottom: 8 }}>Coding Assessment</h1>
       <p style={{ color: "#555" }}>
-        Machine-to-machine (no redirects). Configure env vars, then click Test
+        Fetching Accounts and Vendors from demo company on Xero.
         Connection.
       </p>
 
@@ -96,26 +91,6 @@ export default function App() {
         >
           Sync Vendors
         </button>
-        <button onClick={() => load("/data/accounts", setAccounts)}>
-          Load Accounts
-        </button>
-        <button onClick={() => load("/data/vendors", setVendors)}>
-          Load Vendors
-        </button>
-        <a
-          href={`${API}/api/download/accounts.csv`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Download Accounts CSV
-        </a>
-        <a
-          href={`${API}/api/download/vendors.csv`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Download Vendors CSV
-        </a>
       </div>
 
       <h2>Accounts ({accounts.length})</h2>
