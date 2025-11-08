@@ -16,11 +16,21 @@ class Bootstrap
         $storageDir = Environment::get('STORAGE_DIR');
         if (!$storageDir) {
             $storageDir = __DIR__.'/../storage';
+        } else {
+            // if relative path in .env, make it relative to project root
+            if (!str_starts_with($storageDir, '/')) {
+                $storageDir = __DIR__.'/../'.$storageDir;
+            }
         }
         
         $logDir = Environment::get('LOG_DIR');
         if (!$logDir) {
             $logDir = __DIR__.'/../logs';
+        } else {
+            // if relative path in .env, make it relative to project root
+            if (!str_starts_with($logDir, '/')) {
+                $logDir = __DIR__.'/../'.$logDir;
+            }
         }
         
         if (!is_dir($storageDir)) {

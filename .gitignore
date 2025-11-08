@@ -210,7 +210,8 @@ __marimo__/
 /api-php/vendor/
 /web-react/node_modules/
 
-# storage data
-/api-php/public/storage/
+# storage data and logs
+/api-php/storage/
+/api-php/logs/
 .DS_Store
 api-php/.phpunit.result.cache
