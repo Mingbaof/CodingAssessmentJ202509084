@@ -39,7 +39,7 @@ $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 function json($data, int $code = 200) {
     http_response_code($code);
     header('Content-Type: application/json');
-    echo json_encode($data);
+    echo json_encode($data); // sends HTTP response body to the client
     exit;
 }
 
