@@ -47,6 +47,7 @@ composer test
 - JSON/CSV are written to `api-php/public/storage/`.
 - Logs at `api-php/public/logs/app.log`.
 
-## Notes
+## High Level Design Diagram
 
-- The server obtains access tokens via `client_credentials`, so no refresh token is used. We will request a new token when needed.
+<img width="1465" height="814" alt="Architecture   High Level Design" src="https://github.com/user-attachments/assets/88ebf41a-d25f-4837-88c1-1b5272e0380d" />
+
