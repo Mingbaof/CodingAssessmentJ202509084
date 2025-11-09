@@ -21,7 +21,14 @@ cd web-react && npm install
 npm run dev
 ```
 
-Open `http://localhost:5173` → click **Test Connection** → **Sync Accounts** / **Sync Vendors**.
+Open `http://localhost:5173` -> click **Test Connection** -> **Sync Accounts** / **Sync Vendors**.
+
+## API Documentation(For details please see APIDoc.md)
+
+API documentation is using Swagger UI:
+- Start the PHP server: `cd api-php && php -S localhost:8080 -t public`
+- Open: `http://localhost:8080/docs`
+- OpenAPI JSON spec: `http://localhost:8080/api-docs.json`
 
 ## Testing
 

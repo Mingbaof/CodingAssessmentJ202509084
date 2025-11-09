@@ -6,11 +6,10 @@ namespace App;
 
 class Environment
 {
-    // Get environment variable value
-    // First checks $_ENV, then $_SERVER, then getenv()
+    // get environment variable value
+    // first checks $_ENV, then $_SERVER, then getenv(), because dotenv loads into $_ENV
     public static function get(string $key, $default = false)
     {
-        # dotenv loads into $_ENV
         if (isset($_ENV[$key])) {
             return $_ENV[$key];
         }

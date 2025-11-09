@@ -48,6 +48,19 @@ try {
         json(['ok' => true]);
     }
 
+    if ($path === '/docs' && $_SERVER['REQUEST_METHOD']==='GET') {
+        header('Content-Type: text/html');
+        readfile(__DIR__ . '/docs.html');
+        exit;
+    }
+
+    if ($path === '/api-docs.json' && $_SERVER['REQUEST_METHOD']==='GET') {
+        header('Content-Type: application/json');
+        $openApiPath = __DIR__ . '/api-docs.json';
+        readfile($openApiPath);
+        exit;
+    }
+
     if ($path === '/auth/status' && $_SERVER['REQUEST_METHOD']==='GET') {
         $configured = $GLOBALS['xero']->isConfigured();
         $connected = false;

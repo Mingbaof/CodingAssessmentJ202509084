@@ -1,0 +1,276 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Coding Assessment API",
+        "version": "1.0.0",
+        "description": "API for syncing data with Xero accounting system",
+        "contact": {
+            "email": "mingbao@ualberta.ca"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080",
+            "description": "Local development server"
+        }
+    ],
+    "paths": {
+        "/health": {
+            "get": {
+                "tags": ["Health"],
+                "summary": "Health check endpoint",
+                "description": "Returns the health status of the API",
+                "responses": {
+                    "200": {
+                        "description": "API is healthy",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "ok": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/status": {
+            "get": {
+                "tags": ["Authentication"],
+                "summary": "Get authentication status",
+                "description": "Check if Xero connection is configured and connected",
+                "responses": {
+                    "200": {
+                        "description": "Authentication status",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "configured": {
+                                            "type": "boolean",
+                                            "example": true,
+                                            "description": "Whether Xero credentials are configured"
+                                        },
+                                        "connected": {
+                                            "type": "boolean",
+                                            "example": false,
+                                            "description": "Whether connection to Xero is active"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "example": "Missing required environment variables: XERO_CLIENT_ID",
+                                            "description": "Error message if any"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sync/accounts": {
+            "post": {
+                "tags": ["Sync"],
+                "summary": "Sync accounts from Xero",
+                "description": "Fetch accounts from Xero API and save to local storage",
+                "responses": {
+                    "200": {
+                        "description": "Accounts synced successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "count": {
+                                            "type": "integer",
+                                            "example": 25,
+                                            "description": "Number of accounts synced"
+                                        },
+                                        "rows": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "accountID": {
+                                                        "type": "string",
+                                                        "example": "550e8400-e29b-41d4-a716-446655440000"
+                                                    },
+                                                    "code": {
+                                                        "type": "string",
+                                                        "example": "200"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Sales"
+                                                    },
+                                                    "type": {
+                                                        "type": "string",
+                                                        "example": "REVENUE"
+                                                    },
+                                                    "taxType": {
+                                                        "type": "string",
+                                                        "example": "OUTPUT"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Income from sales"
+                                                    },
+                                                    "class": {
+                                                        "type": "string",
+                                                        "example": "REVENUE"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "ACTIVE"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Sync failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Connection to Xero failed"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sync/vendors": {
+            "post": {
+                "tags": ["Sync"],
+                "summary": "Sync vendors from Xero",
+                "description": "Fetch vendors/contacts from Xero API and save to local storage",
+                "responses": {
+                    "200": {
+                        "description": "Vendors synced successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "count": {
+                                            "type": "integer",
+                                            "example": 15,
+                                            "description": "Number of vendors synced"
+                                        },
+                                        "rows": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "contactID": {
+                                                        "type": "string",
+                                                        "example": "550e8400-e29b-41d4-a716-446655440001"
+                                                    },
+                                                    "contactNumber": {
+                                                        "type": "string",
+                                                        "example": "VENDOR001"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "ABC Suppliers Ltd"
+                                                    },
+                                                    "firstName": {
+                                                        "type": "string",
+                                                        "example": "John"
+                                                    },
+                                                    "lastName": {
+                                                        "type": "string",
+                                                        "example": "Doe"
+                                                    },
+                                                    "emailAddress": {
+                                                        "type": "string",
+                                                        "example": "john@abcsuppliers.com"
+                                                    },
+                                                    "contactStatus": {
+                                                        "type": "string",
+                                                        "example": "ACTIVE"
+                                                    },
+                                                    "isSupplier": {
+                                                        "type": "boolean",
+                                                        "example": true
+                                                    },
+                                                    "isCustomer": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Sync failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Connection to Xero failed"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Health",
+            "description": "Health check operations"
+        },
+        {
+            "name": "Authentication",
+            "description": "Authentication and connection status operations"
+        },
+        {
+            "name": "Sync",
+            "description": "Data synchronization operations with Xero"
+        }
+    ]
+}
