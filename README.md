@@ -35,7 +35,10 @@ API documentation is using Swagger UI:
 Run PHP unit tests:
 
 ```bash
-cd api-php
+cd api-php && php -S localhost:8080 -t public
+```
+- Now open another terminal and run:
+``` 
 composer test
 ```
 
