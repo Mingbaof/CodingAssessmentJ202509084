@@ -7,5 +7,5 @@
 
 ### Pre/Post Design Diagram:
 
-- There are `Pre Design Diagram` and `Post Design Diagram`, the pre one is just some initial design after I implemented the strcuture of the repo and the packages(modules). The post one is updated with more details after I completed the assessment.
+- There are `Pre Design Diagram` and `Architecutre & High Level Design`, the first one is just some initial design after I implemented the strcuture of the repo and the packages(modules). The later one is drawn with more details after I completed the assessment.
 - User flow is simple, so no Sequence diagrams are needed.
